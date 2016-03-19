@@ -42,7 +42,7 @@ MainWnd::MainWnd(QWidget* parent)
         maxThreads = 1;
     _futures.resize(maxThreads);
 
-    setWindowTitle(QS("Генератор лабиринтов"));
+    setWindowTitle(QS("Р“РµРЅРµСЂР°С‚РѕСЂ Р»Р°Р±РёСЂРёРЅС‚РѕРІ"));
 
     QWidget* display;
     setCentralWidget(display = new QWidget);
@@ -77,13 +77,13 @@ MainWnd::MainWnd(QWidget* parent)
     _height = 500;
 
     QDoubleSpinBox* setting[MaxParam];
-    addDockWidget(Qt::LeftDockWidgetArea, dock = new QDockWidget(QS("Параметры")));
+    addDockWidget(Qt::LeftDockWidgetArea, dock = new QDockWidget(QS("РџР°СЂР°РјРµС‚СЂС‹")));
     dock->setWidget(settings = new QWidget);
     dock->setFeatures(dock->DockWidgetMovable | dock->DockWidgetFloatable);
     settings->setLayout(laySettings = new QFormLayout);
     laySettings->addRow(_iterationLabel = new QLabel);
-    laySettings->addRow(QS("Ширина"), settingWidth = new QSpinBox);
-    laySettings->addRow(QS("Высота"), settingHeight = new QSpinBox);
+    laySettings->addRow(QS("РЁРёСЂРёРЅР°"), settingWidth = new QSpinBox);
+    laySettings->addRow(QS("Р’С‹СЃРѕС‚Р°"), settingHeight = new QSpinBox);
     settingWidth->setRange(1, 5000);
     settingHeight->setRange(1, 5000);
     settingWidth->setValue(_width);
@@ -113,11 +113,11 @@ MainWnd::MainWnd(QWidget* parent)
         });
     }
     QPushButton *buttonReset;
-    laySettings->addRow(_autoCenter = new QCheckBox(QS("Точка в центре")));
+    laySettings->addRow(_autoCenter = new QCheckBox(QS("РўРѕС‡РєР° РІ С†РµРЅС‚СЂРµ")));
     _autoCenter->setChecked(true);
     connect(_autoCenter, &QCheckBox::stateChanged, this, &MainWnd::ResetField);
 
-    laySettings->addRow(buttonReset = new QPushButton(QS("Очистить поле")));
+    laySettings->addRow(buttonReset = new QPushButton(QS("РћС‡РёСЃС‚РёС‚СЊ РїРѕР»Рµ")));
     connect(buttonReset, &QPushButton::clicked, this, &MainWnd::ResetField);
 
     _timer = new QTimer(this);
@@ -166,9 +166,9 @@ void MainWnd::WrapV(double* field)
 {
     for (int j = _maxRadius; j < _rboundW; ++j)
     {
-        for (int i = 0; i < _maxRadius; ++i) // Верхняя
+        for (int i = 0; i < _maxRadius; ++i) // Р’РµСЂС…РЅСЏСЏ
             field[i * _realW + j] = field[(i + _height) * _realW + j];
-        for (int i = _rboundH; i < _realH; ++i) // Нижняя
+        for (int i = _rboundH; i < _realH; ++i) // РќРёР¶РЅСЏСЏ
             field[i * _realW + j] = field[(i - _height) * _realW + j];
     }
 }
@@ -177,9 +177,9 @@ void MainWnd::WrapH(double* field)
 {
     for (int i = _maxRadius; i < _rboundH; ++i)
     {
-        for (int j = 0; j < _maxRadius; ++j) // Левая
+        for (int j = 0; j < _maxRadius; ++j) // Р›РµРІР°СЏ
             field[i * _realW + j] = field[i * _realW + j + _width];
-        for (int j = _rboundW; j < _realW; ++j) // Правая
+        for (int j = _rboundW; j < _realW; ++j) // РџСЂР°РІР°СЏ
             field[i * _realW + j] = field[i * _realW + j - _width];
     }
 }
@@ -256,7 +256,7 @@ void MainWnd::ApplyKernel(const std::vector<double>& kernel, double* output)
     const int radius = (int)kernel.size() - 1;
     double* o1 = output + _activity.size();
     
-    // Горизонтальный проход
+    // Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РїСЂРѕС…РѕРґ
     const int deltaH = ((_height + numThreads - 1) / numThreads);
     for (int t = 0; t < numThreads; ++t)
     {
@@ -282,7 +282,7 @@ void MainWnd::ApplyKernel(const std::vector<double>& kernel, double* output)
 
     WrapV(o1);
 
-    // Вертикальный проход
+    // Р’РµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РїСЂРѕС…РѕРґ
     const int deltaV = ((_width + numThreads - 1) / numThreads);
     for (int t = 0; t < numThreads; ++t)
     {
@@ -308,5 +308,5 @@ void MainWnd::ApplyKernel(const std::vector<double>& kernel, double* output)
 
 void MainWnd::UpdateIterationLabel()
 {
-    _iterationLabel->setText(QS("Итерация: %1").arg(_iteration));
+    _iterationLabel->setText(QS("РС‚РµСЂР°С†РёСЏ: %1").arg(_iteration));
 }
