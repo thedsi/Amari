@@ -1,4 +1,4 @@
-#include "Amari.h"
+﻿#include "Amari.h"
 #include <QApplication>
 #include <QDockWidget>
 #include <QFormLayout>
