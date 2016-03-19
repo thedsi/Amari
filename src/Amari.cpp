@@ -128,6 +128,7 @@ MainWnd::MainWnd(QWidget* parent)
     });
 
     ResetField();
+    dock->setMaximumWidth(200);
     resize(_width + dock->sizeHint().width(), _height);
 }
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3.1)
+cmake_minimum_required(VERSION 3.2.2)
 project(amari)
 
 find_package(Qt5 COMPONENTS Core Widgets Gui Concurrent REQUIRED)
@@ -15,6 +15,7 @@ add_executable(${PROJECT_NAME} WIN32 ${HEADERS} ${SOURCES} ${RESOURCES})
 
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Concurrent)
 
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14)
 
 if(STATIC_RELEASE)
         
